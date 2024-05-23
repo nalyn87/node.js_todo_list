@@ -1,6 +1,6 @@
 import express from 'express';
 import connect from './schemas/index.js';
-import todosTouter from './routes/todos.router.js';
+import todosRouter from './routes/todos.router.js';
 import errorHandlerMiddleware from './middlewares/error_handler_middleware.js';
 
 const app = express();
@@ -12,6 +12,7 @@ connect();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// html 서빙하는 함수
 app.use(express.static('./assets'));
 
 const router = express.Router();
@@ -21,7 +22,7 @@ router.get('/', (req, res) => {
 });
 
 // 라우터 미들웨어 등록
-app.use('/api', [router, todosTouter]);
+app.use('/api', [router, todosRouter]);
 
 // 에러 처리 미들웨어 등록
 app.use(errorHandlerMiddleware);
